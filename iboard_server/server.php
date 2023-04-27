@@ -7,6 +7,9 @@ if (!extension_loaded('soap')) {
 
 class MySoapServer {
   public function displayString($message) {
+    $data = array('message' => $message, 'timestamp' => time());
+    $json = json_encode($data);
+    file_put_contents('messages.json', $json . "\n", FILE_APPEND);
     return $message;
   }
 }
