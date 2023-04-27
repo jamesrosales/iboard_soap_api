@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://example.com/soap" targetNamespace="http://example.com/soap">
+  <!-- wsdl = Web Service Description Language-->
+  <message name="displayStringRequest">
+    <part name="message" type="xsd:string"/>
+  </message>
+  <message name="displayStringResponse">
+    <part name="result" type="xsd:string"/>
+  </message>
+  <portType name="MySoapServerPortType">
+    <operation name="displayString">
+      <input message="tns:displayStringRequest"/>
+      <output message="tns:displayStringResponse"/>
+    </operation>
+  </portType>
+  <binding name="MySoapServerBinding" type="tns:MySoapServerPortType">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="displayString">
+      <soap:operation soapAction="http://example.com/soap/displayString"/>
+      <input>
+        <soap:body use="encoded" namespace="http://example.com/soap" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="http://example.com/soap" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="MySoapServer">
+    <port name="MySoapServerPort" binding="tns:MySoapServerBinding">
+      <soap:address location="http://example.com/soap"/>
+    </port>
+  </service>
+</definitions>
