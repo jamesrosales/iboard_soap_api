@@ -100,29 +100,24 @@
 
   <main>
   <?php
-    if (isset($_POST['submit']) && !empty($_POST['message'])) {
-        $message = $_POST['message'];
+    if (isset($_POST['submit']) && !empty($_POST['bh'])) {
+        $bh = $_POST['bh'];
         $options = array(
           'location' => 'http://localhost:8081/iboard_server/server.php',
           'uri' => 'http://example.com/soap'
         );
         $client = new SoapClient(null, $options);
-        $result = $client->displayString($message);
+        $result = $client->displayString($bh);
         // echo "<p>Message sent: $message</p>";
-
-        // Save the message to a JSON file
-        $data = array('message' => $message);
-        $json = json_encode($data);
-        $file = 'messages.json';
-        file_put_contents($file, $json . PHP_EOL, FILE_APPEND | LOCK_EX); // PHP_EOL adds a newline at the end
-    } else {
+      }
+      else {
         echo "<p></p>";
     }
   ?>
 
 <form method="post">
-    <label for="message"></label>
-    <input type="text" name="message" id="message" placeholder="Input Boarding House Names">
+    <label for="bh"></label>
+    <input type="text" name="bh" id="bh" placeholder="Input Boarding House Names">
     <button type="submit" name="submit">Add</button>
   </form>
 
@@ -136,14 +131,14 @@
   <ul class="gradient-box">
     <?php
     // Display all messages saved in messages.json
-    $file = 'messages.json';
+    $file = 'C:\xampp\htdocs\iboard_server\boarding_houses.json';
     if (file_exists($file)) {
-        $messages = file($file);
-        if ($messages) {
-            foreach ($messages as $line) {
+        $boarding_houses = file($file);
+        if ($boarding_houses) {
+            foreach ($boarding_houses as $line) {
                 $data = json_decode(trim($line), true);
-                $color = '#' . substr(md5($data['message']), 0, 6);
-                echo '<li style="background-color: rgba(173,216,230, 0.7); border-radius: 10px; color: white; padding: 10px; margin: 10px;">' . $data['message'] . '</li>';
+                $color = '#' . substr(md5($data['bh']), 0, 6);
+                echo '<li style="background-color: rgba(173,216,230, 0.7); border-radius: 10px; color: white; padding: 10px; margin: 10px;">' . $data['bh'] . '</li>';
             }
         } else {
             echo '<li>No boarding houses saved yet.</li>';
