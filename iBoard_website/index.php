@@ -110,12 +110,7 @@
         $result = $client->displayString($message);
         // echo "<p>Message sent: $message</p>";
 
-        // Save the message to a JSON file
-        $data = array('message' => $message);
-        $json = json_encode($data);
-        $file = 'messages.json';
-        file_put_contents($file, $json . PHP_EOL, FILE_APPEND | LOCK_EX); // PHP_EOL adds a newline at the end
-    } else {
+    else {
         echo "<p></p>";
     }
   ?>
@@ -136,7 +131,7 @@
   <ul class="gradient-box">
     <?php
     // Display all messages saved in messages.json
-    $file = 'messages.json';
+    $file = 'C:\xampp\htdocs\iboard_server\messages.json';
     if (file_exists($file)) {
         $messages = file($file);
         if ($messages) {
